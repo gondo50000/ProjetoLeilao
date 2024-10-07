@@ -1,49 +1,45 @@
-import './Login.css'
+// src/Register.js
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validação simples
-    if (!email || !password) {
+    if (!email || !password || !confirmPassword) {
       setErrorMessage('Preencha todos os campos');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage('As senhas não coincidem');
       return;
     }
 
     setErrorMessage('');
 
-    // Lógica de autenticação (por exemplo, chamada API)
+    // Lógica de registro (exemplo, chamada API)
     console.log('Email:', email);
     console.log('Password:', password);
 
-    // Após login, redirecione para a página principal ou dashboard
-    navigate('/dashboard');
-  };
-
-  // Redirecionar para página de cadastro
-  const handleRegister = () => {
-    navigate('/register');
-  };
-
-  // Redirecionar para página de recuperação de senha
-  const handleForgotPassword = () => {
-    navigate('/forgot-password');
+    // Redirecionar para a tela de login após o registro bem-sucedido
+    navigate('/');
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
+    <div className="register-container">
+      <h2>Cadastrar Usuário</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label className='label-email'>Email:</label>
+          <label>Email:</label>
           <input
             type="email"
             value={email}
@@ -60,18 +56,20 @@ const Login = () => {
             placeholder="Digite sua senha"
           />
         </div>
+        <div>
+          <label>Confirme a Senha:</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirme sua senha"
+          />
+        </div>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button type="submit">Entrar</button>
+        <button type="submit">Cadastrar</button>
       </form>
-
-      <div className="extra-options">
-        <p onClick={handleForgotPassword} className="link">
-          Esqueceu sua senha?
-        </p>
-        <button onClick={handleRegister}>Cadastrar-se</button>
-      </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

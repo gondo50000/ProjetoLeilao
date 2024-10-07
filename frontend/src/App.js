@@ -1,23 +1,22 @@
-import './App.css';
-import {BrowserRouter, Route, Routes} from  'react-router-dom';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
+// src/App.js
 
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/login/Login';
+import Register from './pages/Cadastro/Register'
+import ForgotPassword from './pages/RecuperarSenha/ForgotPassword';
 
 function App() {
   return (
-   <>
-    <Header/>
-      <BrowserRouter>
+    <Router>
+      <div className="App">
         <Routes>
-            <Route path='/' Component={Home}/>
-            <Route path='/login' Component={Login} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
-      </BrowserRouter>
-    <Footer/>
-   </>
+      </div>
+    </Router>
   );
 }
 
